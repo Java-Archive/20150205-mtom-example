@@ -1,0 +1,5 @@
+<foo>
+    <image>
+        <xop:Include xmlns:xop="http://www.w3.org/2004/08/xop/include" href="cid:http://example.org/me.jpeg"/>
+    </image>
+</foo>
