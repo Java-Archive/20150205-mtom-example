@@ -1,0 +1,2019 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="EnhancedFolderAttachmentProcessAsyncIn_SFX"
+                  targetNamespace="http://vwfsag.de/EnhancedFolder/SFX" xmlns:p2="http://vwfsag.de/EnhancedFolder"
+                  xmlns:p1="http://vwfsag.de/EnhancedFolder/SFX"
+                  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp1="http://www.w3.org/ns/ws-policy"
+                  xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization">
+    <wsdl:documentation/>
+    <wsp:UsingPolicy wsdl:required="true"/>
+    <wsp:Policy wsu:Id="OP_EnhancedFolderAttachmentProcessAsyncIn_SFX"/>
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://vwfsag.de/EnhancedFolder" xmlns="http://vwfsag.de/EnhancedFolder"
+                    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:p7="http://vwfsag.de/BasePatterns"
+                    xmlns:p5="http://vwfsag.de/BaseTypes">
+            <xsd:import namespace="http://vwfsag.de/BaseTypes"/>
+            <xsd:import namespace="http://vwfsag.de/BasePatterns"/>
+            <xsd:element name="EnhancedFolderAttachmentProcessMessage" type="EnhancedFolderAttachmentProcessMessage"/>
+            <xsd:simpleType name="MimeType">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="DE">MIME-Type des Dokuments</xsd:documentation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">36bfce40352411e098ae00000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="50"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:complexType name="RedirectTarget">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">45100671d7a711dba5853e8ca46d3618</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="OrganisationalUnit" type="OrganisationalUnit" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">44299e10d7a711db9cd4c11f0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Organisationseinheit</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Application" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">44299e11d7a711db9136c11f0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Anwendungskürzel (z.B. ZGP)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="System" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">44299e12d7a711dba6cac11f0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Systemkürzel (z.B. F3P)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="FormField">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">09287066b6fe11e28eca00000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="FieldId" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">0d285edbb6fe11e29ccbbc305b9f830b
+                            </xsd:appinfo>
+                            <xsd:documentation>FieldId wird in VM erzeugt und als Referenz zur FieldId aus RawFormFields
+                                genutzt
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="FieldName" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3c41e9e0429311db9a7cd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Schlüssel für Formularfeld (eindeutig mit Formularkennung bzw.
+                                Dokumenttyp)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="DocumentSection" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3c41e9e2429311db8adfd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Name eines identifizierbareren Teils eines Formulars (z.B SCHUFA
+                                Anfrage)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="ElectronicValue" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3c41e9e3429311db9a4fd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Vorliegender elektronischer Wert (z.b. aus BTxml)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="255"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="EnteredValue" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3c41e9e4429311dbc124d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Wert aus der Datenerfassung im FIT</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="255"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="IsNotFormal" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">49c0da70b1ee11dbae52cc4d0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Der eingegebene Wert entspricht nicht dem Datentyp oder der Länge des
+                                Feldes (laut FDB)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="EnhancedFolderHeader">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">71b06c4275dc11e2b17400000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="IdentifierGroups" type="p7:IdentifierGroups" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">6ea86870317811dd9c53c9650a2b8cc0
+                            </xsd:appinfo>
+                            <xsd:documentation>Schlüsselgruppen</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="FolderId" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">0a5b48c0429011db9695d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Id der Mappe in EKA</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="FolderType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">0a5b48c1429011db87c7d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Mappentyp in EKA</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Status" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">0a5b48c2429011dbbec4d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Status (im Verarbeitungsprozess)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="ReceiptDate" type="xsd:date" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">0a5b48c3429011db99cbd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Datum des Posteingangs (Quelle FIL)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="InputChannel" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">0a5b48c4429011dbc922d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Eingangskennung der Mappe (Quelle FIL)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Type" minOccurs="0">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            8bc461404ee211dba982c42a0a2b612c
+                                        </xsd:appinfo>
+                                        <xsd:documentation>z.B. Fax oder Scanner</xsd:documentation>
+                                    </xsd:annotation>
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                            <xsd:maxLength value="50"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="Value" type="xsd:string" minOccurs="0">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            8bc461414ee211dbac69c42a0a2b612c
+                                        </xsd:appinfo>
+                                        <xsd:documentation>z.B. Faxnummer des Absenders oder Scannerkennung
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="IsProcessed" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">de25fcd0563111dcc3bff4250a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Flag: Die Mappe wurde bereits verarbeitet (Fälle FAX und Email)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="IsSubsequentDelivery" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">eb6ef0d8ead111e1aa2618a9052debd6
+                            </xsd:appinfo>
+                            <xsd:documentation>Flag: Die Mappe wurde nachgeliefert und ist inhaltlich als (Delta-) Teil
+                                einer bereits gelieferten Mappe zu betrachten.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Pile" type="FolderPile" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">0a5b48c5429011dba47ed7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Stapelinformationen</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="References" type="p5:ReferencesType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">0a5db9c0429011dbc3e9d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Referenzen auf andere Objekte (z.B. VorgangsId, Betriebsnummer,
+                                Verkäufernummer in VM)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="FolderTargets" type="FolderTargets" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">c7ba2310d7c711db8e53c11f0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Routingziele für die Mappe</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Clearing" type="HeaderClearing" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">7192e1f775dc11e2ca2c18a9052debd6
+                            </xsd:appinfo>
+                            <xsd:documentation>HeaderClearing</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Document">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">85a2ed487e0911e3a94100000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Id" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4a0429111db895cd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>EKA-Id des Dokuments (über die die URL-ermittelt wird)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="40"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Identifiers" type="p5:IdentifiersType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4a1429111db8190d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Weitere Schlüssel zum Dokument</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ServiceAttachmentReferences" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3f30418de11911e1ccd018a9052debd6
+                            </xsd:appinfo>
+                            <xsd:documentation>Container für Referenzen auf Elemente der Liste von Attachments
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="ServiceAttachmentReference" type="ServiceAttachmentReference"
+                                             minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            3f30418ce11911e1a00918a9052debd6
+                                        </xsd:appinfo>
+                                        <xsd:documentation>Referenz auf ein Element in der Liste der von Attachments
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="InputChannel" type="InputChannel" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">a7a06b4f089811e281d718a9052debd6
+                            </xsd:appinfo>
+                            <xsd:documentation>Eingangskanal des Dokuments</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Type" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4a2429111db9f76d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Dokumententyp (auch Formularkennung genannt)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Authenticity" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">b88906c6089a11e2956418a9052debd6
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Feld: Dokumentenauthentizität (Original, Kopie, beglaubigte
+                                Kopie)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Version" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4a3429111db9c43d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Version des Dokuments</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="5"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="SubVersion" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">2a1bee606bc011dec491f3290a2b8cc0
+                            </xsd:appinfo>
+                            <xsd:documentation>Unterversion des Dokuments</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="5"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Description" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4a4429111db8a58d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Beschreibung des Dokumenttyps</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="100"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="MimeType" type="MimeType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">47a13afb352511e0b5e3000ffedf363f
+                            </xsd:appinfo>
+                            <xsd:documentation>MIME-Type des Dokuments</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Status" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4a5429111dbc4a2d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Status des Dokuments im Bearbeitungsprozess</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Company" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4a6429111dbb139d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Firma (Marke oder Drittmarkt, in FIL ist das der Client)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="PrintCounter" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">60bb1f70d62d11db9ebade800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Zähler (alphanum.), wie oft ein Dokument ausgedruckt wurde pro Vorgang
+                                (ohne kalk. rel. Änderung)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="2"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="IsRescanned" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">982f1cc0d62511db9b1ade800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Flag: Dokument ist mehr als einmal gescannt worden (weil nicht lesbar)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="NeedsSignatureAudit" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">437ae140683a11dbb6ecea280a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Flag: Dokument muß bzgl. Unterschrift(en) geprüft werden
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="IsNotPartOfFolder" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">437ae141683a11dbc1daea280a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Flag: Dokument kommt nicht über den Posteingang, im Prozess ergänzt (z.B.
+                                Unterschriftsprobe)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="HasBeenChecked" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">c762f7b1b6fd11e2b795bc305b9f830b
+                            </xsd:appinfo>
+                            <xsd:documentation>Flag: Kennzeichnet, ob das Dokument geprüft wurde (und somit dunkel
+                                verarbeitet wird) oder nicht
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="HasAdditionalAttachments" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">84f7f2517e0911e3cffdbc305bb279b9
+                            </xsd:appinfo>
+                            <xsd:documentation>Flag: Das Original Dokument (vorrangig E-Mail) hat zusätzliche Anhänge
+                                die nicht im Enhanced Folder enthalten sind.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="FolderPositionNumber" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4a7429111db8d62d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Position des Dokuments in der Mappe</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="10"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="ScanTimeStamp" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4a8429111dbcd29d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Zeitstempel des Scannens (YYYYMMDDHHMMSS)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="20"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="NumberOfPages" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4a9429111dbbaaad7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Anzahl der Seiten</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:short">
+                                <xsd:totalDigits value="2"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="ArchiveDate" type="xsd:date" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4aa429111db83acd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Archivierungsdatum</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ArchiveTime" type="xsd:time" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4ab429111db8e6ed7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Archivierungszeit</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Variants" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">47a13afd352511e09741000ffedf363f
+                            </xsd:appinfo>
+                            <xsd:documentation>Varianten des Dokuments</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Variant" type="Variant" minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            47a13afc352511e0cbce000ffedf363f
+                                        </xsd:appinfo>
+                                        <xsd:documentation>Variante des Dokuments</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="References" type="p5:ReferencesType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4ac429111db93e3d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Referenzen auf andere Objekte</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="RawFormFields" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">8dc30270487611dbb94bc6730a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Ursprüngliche Formularfelder</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="RawFormField" type="RawFormField" minOccurs="0"
+                                             maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            8dc30271487611db80edc6730a2b612c
+                                        </xsd:appinfo>
+                                        <xsd:documentation>Ursprüngliches Formularfeld (ausgeprägt z.B. in FIL)
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="Pages" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3eada4ad429111dbbb95d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Daten zu den Seiten eines Dokuments</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Page" type="DocumentPage" minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            34553000429511dba8ebd7200a2b612c
+                                        </xsd:appinfo>
+                                        <xsd:documentation>Seite eines Dokuments</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="Clearing" type="Clearing" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">dc432520d71311db9390f6220a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Clearing</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="FolderTargets">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">98c36e91d7c711dba5db3e8ca46d3618</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="FolderTarget" type="FolderTarget" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">9940b4e0d7c711db9e8ec11f0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Routingziel für die Mappe</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Barcode">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">2bdf7e10d62611db8ba83e8ca46d3618</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Company" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">13642430429211dbafedd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Client (Marke oder Drittmarktdaten)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="2"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="FormIdentifier" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">13642431429211dbaebbd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Formularkennung</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="3"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="FormVersion" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">13642432429211dbb8f1d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Formularversion</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="2"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="PageNumber" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">13642433429211dba89dd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Seitennummer</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="2"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="TechnicalStoragePlace" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">13642434429211dbaff8d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Technische Ort für Barcodeinformationen</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="1"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="PrintCounter" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">2feb1b40d62611dbcc38de800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Zähler (alphanum.), wie oft ein Dokument ausgedruckt wurde
+                                pro Vorgang (ohne kalk. rel. Änderung)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="2"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="DynamicIdentifier" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">13642435429211dba990d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Dynamische Daten im Barcode aus den Anwendungen
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DocumentPage">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">b125bad09a7d11e4a75e00000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="IdentifierGroups" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">b078f6659a7d11e4a3ff2c27d735cc9b
+                            </xsd:appinfo>
+                            <xsd:documentation>Weitere Schlüssel zum Dokument</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="IdentifierGroup" type="p7:IdentifierGroup" minOccurs="0"
+                                             maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            b078f6649a7d11e485f92c27d735cc9b
+                                        </xsd:appinfo>
+                                        <xsd:documentation>Schlüssel zum Dokument</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="PageNumber" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">9262a0f0429111db9d3dd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Seitennummer</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Authenticity" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">f9d46207089a11e2c25c18a9052debd6
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Feld: Seitenauthentizität (Original, Kopie, beglaubigte Kopie),
+                                wenn abweichend vom Dokument
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="BarcodeData" type="Barcode" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">9262a0f1429111dbc7b5d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Daten aus dem Barcode</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="FormFields" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">9262a0f2429111dbce96d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Formularfelder</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="FormField" type="FormField" minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            f4d38ee0429411dbc226d7200a2b612c
+                                        </xsd:appinfo>
+                                        <xsd:documentation>Formularfeld</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="Clearing" type="Clearing" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">b078f6669a7d11e4ce832c27d735cc9b
+                            </xsd:appinfo>
+                            <xsd:documentation>Clearing</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="AttachmentReference">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="DE">Referenzen auf ein dem HTTP-Request angehängtes Datenobjekt
+                    </xsd:documentation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">3c5512559b4b11e49e1900000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="ReferenceId" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">d6ec0edb921411e2c3c928924ac968b5
+                            </xsd:appinfo>
+                            <xsd:documentation>Id des Attachment zur Referenzierung innerhalb der Nachricht
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Attachment" type="p5:Attachment" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3b9a8dac9b4b11e4c7e8005056b06357
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="AttachmentContent" type="p5:AttachmentV2" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Clearing">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">5c6a0741d64d11dbccae3e8ca46d3618</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="ClearingReasons" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">67eaab60d64d11dba622de800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Clearinggründe</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="ClearingReason" type="ClearingReason" minOccurs="0"
+                                             maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            67eaab61d64d11dbab5dde800a2b8cc4
+                                        </xsd:appinfo>
+                                        <xsd:documentation xml:lang="DE">Clearinggrund</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="ClearingResponses" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">67eaab62d64d11dbcc28de800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Antworten aus dem Clearing</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="ClearingResponse" type="ClearingResponse" minOccurs="0"
+                                             maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            67eaab63d64d11dba0eade800a2b8cc4
+                                        </xsd:appinfo>
+                                        <xsd:documentation xml:lang="DE">Antwort aus dem Clearing</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="RedirectTargets" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">c84a3ba0d7a711db9da7c11f0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Weiterleitungsziele</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="RedirectTarget" type="RedirectTarget" minOccurs="0"
+                                             maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            2e962bc0d7a911dbac44c11f0a2b8cc4
+                                        </xsd:appinfo>
+                                        <xsd:documentation xml:lang="DE">Weiterleitungsziel</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Variant">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="DE">Variante des Dokuments</xsd:documentation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">c92ae942352411e0bfd000000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Id" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">c912d28d352411e0a253000ffedf363f
+                            </xsd:appinfo>
+                            <xsd:documentation>EKA Id der Variante</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="40"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="MimeType" type="MimeType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">c912d28e352411e0ccb6000ffedf363f
+                            </xsd:appinfo>
+                            <xsd:documentation>MimeType des Dokuments</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ServiceHeader">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">9fff11d04ca511dbad7332702001d002</xsd:appinfo>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">a0063dc14ca511dbc5df32702001d002</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="ProcessContext" type="ProcessContext" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">beb62c90df6211dab1aafd190a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Prozesskontext</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="TestContext" type="TestContext" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">beb62c91df6211daa933fd190a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Testkontext</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="LandscapeContext" type="p5:LandscapeContext" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">d14948900c4111dbc505f27a0a2b612e
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Systemlandschaftsdaten</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ProcessContext">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">54de58cc75d511e2a1b200000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="ProcessId" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">c1abe35028ff11da91a7dc2d0a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>ProzessId</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="CorrelationId" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">c1abe35128ff11dab05bdc2d0a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>ProzessId für Framework</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="CorrelationApplication">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">fd9f64502e9411daadd7ea330a2b612e
+                            </xsd:appinfo>
+                            <xsd:documentation>Anfordernde Anwendung</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="BusinessContext" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">4db1f87046f211da9837d8520a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Geschäftskontext des Prozesses (z.B. Posteingang bei Fahrzeugbrief)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="InputScenario" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">546f5b3d75d511e2c77a18a9052debd6
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Feld: Szenario für das Routing der Message</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="FolderTarget">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">4d715ba1d7c711db922c3e8ca46d3618</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Application" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">4ddd3cd0d7c711db83eac11f0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Anwendungskürzel (z.B. ZGP)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Service" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">4ddd3cd1d7c711db90dbc11f0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Name des aufzurufenden Service</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ClearingReason">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">aab53ac01aa611dd92813e8ca46d3618</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Reason" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">e123cd00d64c11db9c32de800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Grund für ein Clearing</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Editor" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">e123cd01d64c11db879bde800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Bearbeiter</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="12"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="CreationDate" type="xsd:date" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">e123cd02d64c11dbacbade800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Datum der Erstellung</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="CreationTime" type="xsd:time" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">e12616f0d64c11db9c88de800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Zeit der Erstellung</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Notice" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">aa780ab01aa611ddaf32c5310a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Hinweistext zum besseren Verständnis des Clearinggrundes
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="255"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="OrganisationalUnit">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">8fdbe780d7a911db8e393e8ca46d3618</xsd:appinfo>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">8ff38e31d7a911dbc68e3e8ca46d3618</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Team" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">25761d105f7d11dba964e1250a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Name des Teams (z.B. N110)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="PhoneNumber" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">25761d115f7d11dbbb10e1250a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Telefonnummer (vollständig)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="20"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="FaxNumber" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">25761d125f7d11db8655e1250a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Faxnummer</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="20"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ServiceAttachmentReference">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="DE">Referenz auf ein Element in der Liste der von Attachments
+                    </xsd:documentation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">4cae1d13e11911e19d1100000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Id" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">c901895ee11811e18e4118a9052debd6
+                            </xsd:appinfo>
+                            <xsd:documentation>ReferenzId</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="HeaderClearing">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">7d196a6a7a7c11e2836600000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Reasons" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">a0cff98b75da11e2c75818a9052debd6
+                            </xsd:appinfo>
+                            <xsd:documentation>Clearinggründe</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Reason" minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            a0cff98a75da11e2c75a18a9052debd6
+                                        </xsd:appinfo>
+                                        <xsd:documentation>Clearinggrund</xsd:documentation>
+                                    </xsd:annotation>
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="Type" minOccurs="0">
+                                                <xsd:annotation>
+                                                    <xsd:appinfo source="http://sap.com/xi/TextID">
+                                                        a0cff98875da11e29dbe18a9052debd6
+                                                    </xsd:appinfo>
+                                                    <xsd:documentation>Keymap-Feld: standardisierter Grund als Parameter
+                                                        für die Beauftragung des Dokumentenclearings
+                                                    </xsd:documentation>
+                                                </xsd:annotation>
+                                                <xsd:simpleType>
+                                                    <xsd:restriction base="xsd:string">
+                                                        <xsd:maxLength value="50"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleType>
+                                            </xsd:element>
+                                            <xsd:element name="Text" minOccurs="0">
+                                                <xsd:annotation>
+                                                    <xsd:appinfo source="http://sap.com/xi/TextID">
+                                                        a0cff98975da11e2b34d18a9052debd6
+                                                    </xsd:appinfo>
+                                                    <xsd:documentation>textueller Hinweis des Sachbearbeiters bei
+                                                        Beauftragung des Dokumentenclearings
+                                                    </xsd:documentation>
+                                                </xsd:annotation>
+                                                <xsd:simpleType>
+                                                    <xsd:restriction base="xsd:string">
+                                                        <xsd:maxLength value="255"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleType>
+                                            </xsd:element>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="EnhancedFolderAttachmentProcessMessage">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="DE">Angereicherte Mappe zur Verteilung</xsd:documentation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">848512c296df11e2bf7400000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="ServiceHeader" type="ServiceHeader" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">5003ccb04ca611db8641f8e40a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Servicekopfdaten</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ServiceRequest" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">5003ccb14ca611dbae80f8e40a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Serviceanfrage</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="EnhancedFolder" type="EnhancedFolder" minOccurs="0">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            5003ccb24ca611dbaefaf8e40a2b612c
+                                        </xsd:appinfo>
+                                        <xsd:documentation>Daten zur angereicherten Mappe</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                                <xsd:element name="AttachmentReferences" minOccurs="0">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            c4d97518921611e2860728924ac968b5
+                                        </xsd:appinfo>
+                                        <xsd:documentation>Liste von Referenzen auf dem HTTP-Request angehängte
+                                            Datenobjekte
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="AttachmentReference" type="AttachmentReference"
+                                                         minOccurs="0" maxOccurs="unbounded">
+                                                <xsd:annotation>
+                                                    <xsd:appinfo source="http://sap.com/xi/TextID">
+                                                        c4d97517921611e2a5f928924ac968b5
+                                                    </xsd:appinfo>
+                                                    <xsd:documentation>Referenzen auf ein dem HTTP-Request angehängtes
+                                                        Datenobjekt
+                                                    </xsd:documentation>
+                                                </xsd:annotation>
+                                            </xsd:element>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="EnhancedFolder">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">34c2a930497711db8c7632702001d002</xsd:appinfo>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">34c6a0d0497711dbc06232702001d002</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Header" type="EnhancedFolderHeader" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">189463e0429511dbb9c3d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Kopfdaten zu einer Mappe</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Documents" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">189463e1429511db8bedd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Dokumente in der Mappe</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Document" type="Document" minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            189463e2429511db9cb7d7200a2b612c
+                                        </xsd:appinfo>
+                                        <xsd:documentation xml:lang="DE">Dokument in der Mappe</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="FolderPile">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">d91a37d0628811dbc3a032702001d002</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Id" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">5c9eb3b0429011db9d2ad7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Id des Stapels in EKA (Ref. auf phys. Stapel)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="PositionNumber" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">5c9eb3b1429011dbbb85d7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Positionsnummer im Stapel</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:short">
+                                <xsd:totalDigits value="3"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ClearingResponse">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">f7e7e531d64c11dbb5033e8ca46d3618</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Response" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">e123cd00d64c11db9c32de800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Antwort aus dem Clearing</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Editor" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">e123cd01d64c11db879bde800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Bearbeiter</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="CreationDate" type="xsd:date" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">e123cd02d64c11dbacbade800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Datum der Erstellung</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="CreationTime" type="xsd:time" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">e12616f0d64c11db9c88de800a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Zeit der Erstellung</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="TestContext">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">a02a19704ca511dbb31b32702001d002</xsd:appinfo>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">a02f49914ca511dbb25732702001d002</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="TestMode" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">ac0bf730162411da9168ee3d0a2b6132
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Testflag: true / false</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="5"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="RawFormField">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">699af6a5a5ef11e2959900000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="FieldId" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">606cdb7175d711e2b07918a9052debd6
+                            </xsd:appinfo>
+                            <xsd:documentation>Id zur semantischen Klassifizierung von FIL-Dokumentenfeldern über
+                                mehrere FIL-Dokumententypen hinweg. Aus FIL Sicht die NormId
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="FieldName" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3c41e9e0429311db9a7cd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Schlüssel für Formularfeld</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="ElectronicValue" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">3c41e9e3429311db9a4fd7200a2b612c
+                            </xsd:appinfo>
+                            <xsd:documentation>Vorliegender elektronischer Wert (z.b. aus BTxml)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="255"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="ElectronicValueExtended" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">6af08c39a5ef11e2c912bc305b9f830b
+                            </xsd:appinfo>
+                            <xsd:documentation>Vorliegender elektronischer Wert, wie ElectronicValuem bloß ohne
+                                Zeichenbeschränkung
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="InputChannel">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">582c22ee089811e29edd00000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Type" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">6c2247a0f24611dbaa34d44e0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Feld: Type des Eingangskanals, z.B. Fax, Scanner
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Value" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">6c2247a1f24611db98fed44e0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Detaillierung des Eingangskanaltyps, z.B. Faxnummer des Absenders,
+                                Scannerkennung
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+        <xsd:schema targetNamespace="http://vwfsag.de/BasePatterns" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                    xmlns="http://vwfsag.de/BasePatterns">
+            <xsd:complexType name="IdentifierGroups">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">ad7c547da2be11e3baa600000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="IdentifierGroup" type="IdentifierGroup" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">6851df60273c11dd9986f9db0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Identifier information of an information object</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="IdentifierGroup">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">e523f48ca2be11e3c0c600000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Name" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">cd4a7660d7c511dba69bc11f0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Field: Information object name</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="IsReferenced" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">34102dc02b4b11dda103de3d0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Flag: does the information object reference another information within
+                                the current model?
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Role" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">421ee701d54311dfafe5000ffeddfd48
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Field: context specific role the information object is used in
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Source" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">d43340d0271811ddc360f9db0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Field: Key source (application shortcut)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="IsUniqueKey" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">d43340d1271811dd8377f9db0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Flag: is this key unique?</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ModelId" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">538b9601271b11dd9bcff9db0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Reference key to another information object within the current model
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="10"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Identifiers" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">cd4a7661d7c511db86abc11f0a2b8cc4
+                            </xsd:appinfo>
+                            <xsd:documentation>Identifiers of the information object</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Identifier" minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            7a60eaf0d7c611dba9e3c11f0a2b8cc4
+                                        </xsd:appinfo>
+                                        <xsd:documentation>Identifer key and value</xsd:documentation>
+                                    </xsd:annotation>
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="Name" minOccurs="0">
+                                                <xsd:annotation>
+                                                    <xsd:appinfo source="http://sap.com/xi/TextID">
+                                                        7a60eaf2d7c611db9d4bc11f0a2b8cc4
+                                                    </xsd:appinfo>
+                                                    <xsd:documentation>Keymap-Field: Identifier field name
+                                                    </xsd:documentation>
+                                                </xsd:annotation>
+                                                <xsd:simpleType>
+                                                    <xsd:restriction base="xsd:string">
+                                                        <xsd:maxLength value="50"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleType>
+                                            </xsd:element>
+                                            <xsd:element name="Value" type="xsd:string" minOccurs="0">
+                                                <xsd:annotation>
+                                                    <xsd:appinfo source="http://sap.com/xi/TextID">
+                                                        7a60eaf3d7c611dbbc26c11f0a2b8cc4
+                                                    </xsd:appinfo>
+                                                    <xsd:documentation>Identifier value</xsd:documentation>
+                                                </xsd:annotation>
+                                            </xsd:element>
+                                            <xsd:element name="IsMetaValue" type="xsd:boolean" minOccurs="0">
+                                                <xsd:annotation>
+                                                    <xsd:appinfo source="http://sap.com/xi/TextID">
+                                                        3cc82aa02bbc11dd82e5d31f0a2b8cc4
+                                                    </xsd:appinfo>
+                                                    <xsd:documentation>Flag: is the identifier value a meta value?
+                                                    </xsd:documentation>
+                                                </xsd:annotation>
+                                            </xsd:element>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+        <xsd:schema targetNamespace="http://vwfsag.de/BaseTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                    xmlns="http://vwfsag.de/BaseTypes">
+            <xsd:complexType name="Attribute">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">4fc03491a2c111e3cdc600000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Type" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">dbaeefb0188a11db83c7fc190a2b612e
+                            </xsd:appinfo>
+                            <xsd:documentation>Deprecated</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Value" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">dbaeefb1188a11dbbbe6fc190a2b612e
+                            </xsd:appinfo>
+                            <xsd:documentation>Deprecated</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ReferenceType">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">2f63b2503d9311d9948ed7680a2b612d</xsd:appinfo>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">2f731ba03d9311d997cf0002556a9f5e</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Type">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">7f630870330511d99922de0a0a2b612d
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Typ der referenzierten Entität</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Identifiers" type="IdentifiersType">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">7f630871330511d99892de0a0a2b612d
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Verschiedene Schlüssel der referenzierten Entität
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ReferencesType">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cf1cdcd04fae11da9ec4d54e0a2b612c</xsd:appinfo>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">cf3cc0e04fae11da85910002556a9f5e</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Reference" type="ReferenceType" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">fa608ca03c9711d9afe9c6f40a2b612d
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Referenz auf ein Objekt, einen Beleg</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="IdentifiersType">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">fb1407e3ea1f11d9cc31dc590a2b612d</xsd:appinfo>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">fb3fabc0ea1f11d9cd5e0002556a9f5e</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Identifier" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">fb1407e0ea1f11d9c188dc590a2b612d
+                            </xsd:appinfo>
+                            <xsd:documentation xml:lang="DE">Schlüssel</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Source">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            fb1407e1ea1f11d9c77fdc590a2b612d
+                                        </xsd:appinfo>
+                                        <xsd:documentation xml:lang="DE">Vergebende Stelle (z.B. ein System oder eine
+                                            Rolle)
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                            <xsd:maxLength value="50"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="Id" type="xsd:string">
+                                    <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">
+                                            fb1407e2ea1f11d98ef5dc590a2b612d
+                                        </xsd:appinfo>
+                                        <xsd:documentation xml:lang="DE">Schlüssel</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="LandscapeContext">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">5750ac75a2be11e3af7f00000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="LogicalLandscape" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">48f41200f0b611dac11dd8550a2b612e
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Field: Data area (e.g. SAP client) that is consistent system wide
+                                (e.g. QualityAssurance)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Company" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">5892a2c0188a11db9e35fc190a2b612e
+                            </xsd:appinfo>
+                            <xsd:documentation>Deprecated</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="ProjectContext" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">751cb250188a11db9229fc190a2b612e
+                            </xsd:appinfo>
+                            <xsd:documentation>Project the message is valid for</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="TestControlAttributes" type="Attributes" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">433bb9b0188b11dbc768fc190a2b612e
+                            </xsd:appinfo>
+                            <xsd:documentation>Deprecated</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Country" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">e0bfec932e0a11e0c91f000ffea2fd1d
+                            </xsd:appinfo>
+                            <xsd:documentation>Country, the message belongs to</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="3"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="CheckSum">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="DE">Hash des Attachments zur Validierung</xsd:documentation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">532764169b4811e4a6d800000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Type" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">531b2a319b4811e4a1d2005056b06357
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Feld: Typisierung des Hashes. Bspw. MD5, SHA-2, SHA-3
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Value" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">531b4b329b4811e48e33005056b06357
+                            </xsd:appinfo>
+                            <xsd:documentation>Hashwert</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="255"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Attachment">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">809c5b0a44ce11e4b625000031646762</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="AttachmentId" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">dbaeefb0188a11db83c7fc190a2b612e
+                            </xsd:appinfo>
+                            <xsd:documentation>Referenz auf den Anhang durch GUID oder Name des Attachments z.B.
+                                attach1
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="MimeType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">db8626da8e5d11dfb0e5000ffea2faa9
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Feld: klassifiziert die Daten im Anhang, RFC 2045 - Medientyp und
+                                Subtyp getrennt durch &quot;/&quot;, z.B. text/plain für Textdateien
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="CheckSum" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">db8626db8e5d11df9a3d000ffea2faa9
+                            </xsd:appinfo>
+                            <xsd:documentation>MD5-Hash des Attachments zur Validierung</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="AttachmentV2">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">71f8c82c9b4611e4b0b100000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Type" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">dbaeefb0188a11db83c7fc190a2b612e
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Field: Type of technical attachment</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="ContentId" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">db8626da8e5d11dfb0e5000ffea2faa9
+                            </xsd:appinfo>
+                            <xsd:documentation>Reference to the file in the attachment using guid or file name with cid:
+                                as prefix
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="255"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="MimeType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">db8626db8e5d11df9a3d000ffea2faa9
+                            </xsd:appinfo>
+                            <xsd:documentation>Keymap-Field: RFC 2045 / media type</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="CheckSum" type="CheckSum" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">885cbcf79b4811e48dae005056b06357
+                            </xsd:appinfo>
+                            <xsd:documentation>Hash of the attachment for validating</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Base64Data" type="xsd:base64Binary" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">885cbcf89b4811e4cff9005056b06357
+                            </xsd:appinfo>
+                            <xsd:documentation>element for xop include and base64 inline</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Attributes">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/VersionID">49af8902a2be11e3aed200000f6e8a16</xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="Attribute" type="Attribute" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:appinfo source="http://sap.com/xi/TextID">0d497400188b11dbc13efc190a2b612e
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="p2.EnhancedFolderAttachmentProcessMessage">
+        <wsdl:documentation/>
+        <wsdl:part name="EnhancedFolderAttachmentProcessMessage" element="p2:EnhancedFolderAttachmentProcessMessage"/>
+    </wsdl:message>
+    <wsdl:portType name="EnhancedFolderAttachmentProcessAsyncIn_SFX">
+        <wsdl:documentation/>
+        <wsdl:operation name="EnhancedFolderAttachmentProcessAsyncIn_SFX">
+            <wsdl:documentation/>
+            <wsp:Policy>
+                <wsp:PolicyReference URI="#OP_EnhancedFolderAttachmentProcessAsyncIn_SFX"/>
+            </wsp:Policy>
+            <wsdl:input message="p1:p2.EnhancedFolderAttachmentProcessMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="EnhancedFolderAttachmentProcessAsyncIn_SFXBinding"
+                  type="p1:EnhancedFolderAttachmentProcessAsyncIn_SFX">
+        <wsp1:PolicyReference URI="#EnhancedFolderAttachmentProcessAsyncIn_SFXBindingPolicy"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"
+                      xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+        <wsdl:operation name="EnhancedFolderAttachmentProcessAsyncIn_SFX">
+            <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"
+                            xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+            <wsdl:input>
+                <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="EnhancedFolderAttachmentProcessAsyncIn_SFXService">
+        <wsdl:port name="EnhancedFolderAttachmentProcessAsyncIn_SFXPort"
+                   binding="p1:EnhancedFolderAttachmentProcessAsyncIn_SFXBinding">
+            <soap:address
+                    location="http://jcihte.fs01.vwf.vwfs-ad:58200/sap/xi/engine?type=entry&amp;version=3.0&amp;Sender.Service=de_vwfsag_dfe_e&amp;Interface=http%3A%2F%2Fvwfsag.de%2FEnhancedFolder%2FSFX%5EEnhancedFolderAttachmentProcessAsyncIn_SFX"
+                    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsp1:Policy wsu:Id="EnhancedFolderAttachmentProcessAsyncIn_SFXBindingPolicy">
+        <wsp1:ExactlyOne>
+            <wsp1:All>
+                <wsoma:OptimizedMimeSerialization/>
+            </wsp1:All>
+        </wsp1:ExactlyOne>
+    </wsp1:Policy>
+</wsdl:definitions>
