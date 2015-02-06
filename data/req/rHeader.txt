@@ -1,0 +1,5 @@
+User-Agent: Fiddler
+Host: fsdebssa0218:8080
+Content-Length: 276473
+Content-Type: multipart/related;type="text/xml"; boundary="------=_Part_0_28949363.1422896868490"
+SOAPAction: "EnhancedFolderAttachmentProcessAsyncIn_SFXService"
